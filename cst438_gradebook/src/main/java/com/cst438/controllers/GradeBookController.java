@@ -162,14 +162,14 @@ public class GradeBookController {
 	@PostMapping("/assignment/add")
 	@Transactional
 	public void addAssignment(
-			@RequestParam("id")int courseId,
+			@RequestParam("id") int courseId,
 			@RequestParam("name") String assignmentName,
 			@RequestParam("due_date") Date dueDate) {
 		
 		// create a new assignment
 		Assignment a = new Assignment();
 		// every assignment needs a course to be assigned;
-		Course c = courseRepository.findCourseId(courseId);
+		Course c = courseRepository.findCourseById(courseId);
 		
 		// set the basic attributes
 		a.setName(assignmentName);
@@ -185,7 +185,7 @@ public class GradeBookController {
 	
 	@PostMapping("/assignment/delete")
 	@Transactional
-	public void deleteAssignment(@RequestParam("id")int id) {
+	public void deleteAssignment(@RequestParam("id") int id) {
 		Assignment a = assignmentRepository.findById(id);	
 		assignmentRepository.delete(a);
 	}
@@ -194,9 +194,7 @@ public class GradeBookController {
 	@Transactional
 	public void alterUpdate(@RequestParam("id") int id,@RequestParam("name") String newName) {
 		Assignment a = assignmentRepository.findById(id);
-		
 		a.setName(newName);
-		
 		assignmentRepository.save(a);
 		
 	}

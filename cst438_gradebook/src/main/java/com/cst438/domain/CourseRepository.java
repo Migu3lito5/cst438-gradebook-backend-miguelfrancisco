@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 public interface CourseRepository extends CrudRepository <Course, Integer> {
 	
 	// a query to grab the id of a course if it matches the parameter passed in
-	@Query("select c from Course c where c.course_id=:course_id")
-	Course findCourseId(@Param("course_id") int course_id);
+	@Query("select c from Course c where c.course_id = :course_id")
+	Course findCourseById(@Param("course_id") int course_id);
 
 }
