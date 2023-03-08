@@ -17,6 +17,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.sql.Date;
 import java.util.Optional;
 
 import com.cst438.controllers.GradeBookController;
@@ -242,6 +243,44 @@ public class JunitTestGradebook {
 		updatedag.setScore("88");
 		verify(assignmentGradeRepository, times(1)).save(updatedag);
 	}
+	
+	@Test
+	public void addingAssignment() throws Exception {
+		MockHttpServletResponse res;
+		
+		Course course = initCourse();
+		Assignment a = new Assignment();
+		
+		a.setName("TEST-ASSIGNMENT");
+		a.setCourse(course);
+		a.setNeedsGrading(1);
+		
+		String testDate = "2023-01-02";
+		Date date = Date.valueOf(testDate);
+		
+		a.setDueDate(date);
+		
+		given(courseRepository.findCourseId(TEST_COURSE_ID)).willReturn(course);
+		
+		a = mvc.perform(MockMvcRequestBuilders.put("/assignment/add"))
+		
+		
+		
+	}
+	
+	public Course initCourse () {
+		Course course = new Course();
+		course.setCourse_id(TEST_COURSE_ID);
+		course.setSemester(TEST_SEMESTER);
+		course.setYear(TEST_YEAR);
+		course.setInstructor(TEST_INSTRUCTOR_EMAIL);
+		course.setEnrollments(new java.util.ArrayList<Enrollment>());
+		course.setAssignments(new java.util.ArrayList<Assignment>());
+		return course;
+	}
+	
+	public 
+	
 
 	private static String asJsonString(final Object obj) {
 		try {
