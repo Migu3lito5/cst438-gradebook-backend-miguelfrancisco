@@ -159,12 +159,12 @@ public class GradeBookController {
 		
 	}
 	
-	@PostMapping("/assignment/add")
+	@PostMapping("/assignment/add/{id}/{name}/{due_date}")
 	@Transactional
 	public void addAssignment(
-			@RequestParam("id") int courseId,
-			@RequestParam("name") String assignmentName,
-			@RequestParam("due_date") Date dueDate) {
+			@PathVariable("id") int courseId,
+			@PathVariable("name") String assignmentName,
+			@PathVariable("due_date") Date dueDate) {
 		
 		// create a new assignment
 		Assignment a = new Assignment();
