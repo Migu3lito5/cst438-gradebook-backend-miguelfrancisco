@@ -45,7 +45,13 @@ public class RegistrationServiceMQ extends RegistrationService {
 	public void receive(EnrollmentDTO enrollmentDTO) {
 		
 		//TODO  complete this method in homework 4
-		
+		Course c = courseRepository.findCourseById(enrollmentDTO.course_id);
+		Enrollment e = new Enrollment();
+		e.setId(enrollmentDTO.id);
+		e.setStudentEmail(enrollmentDTO.studentEmail);
+		e.setStudentName(enrollmentDTO.studentName);
+		e.setCourse(c);		
+		enrollmentRepository.save(e);
 	}
 
 	// sender of messages to Registration Service
@@ -53,6 +59,7 @@ public class RegistrationServiceMQ extends RegistrationService {
 	public void sendFinalGrades(int course_id, CourseDTOG courseDTO) {
 		 
 		//TODO  complete this method in homework 4
+		rabbitTemplate.convertAndSend(registrationQueue.getName(), courseDTO);
 		
 	}
 
